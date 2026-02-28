@@ -156,13 +156,33 @@ input[type="range"]::-webkit-slider-thumb {
   width: 100%;
   height: 100%;
   z-index: 0;
+  pointer-events: none;
+
+  /* Tile the image */
+  background-repeat: repeat;
+  background-size: 180px 180px;
+
+  /*
+   * mix-blend-mode: screen — black pixels in the PNG become invisible.
+   * screen(#000, anything) = anything, so the terminal bg shows through cleanly.
+   * Only the actual stone Moai pixels composite on top. No transparent PNG needed.
+   */
+  mix-blend-mode: screen;
+
+  /*
+   * Tint the Moai heads neon green:
+   * sepia()            converts to a warm brown base
+   * hue-rotate(90deg)  shifts brown -> green
+   * saturate(4)        punches up the color intensity
+   * brightness(0.4)    controls how bold the heads appear.
+   *                    Raise toward 0.6 for more visible, lower for more subtle.
+   */
+  filter: sepia(1) hue-rotate(90deg) saturate(4) brightness(0.4);
+
+  /* Crisp pixel-art rendering — matches the SoulByte aesthetic */
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
-  background-repeat: repeat;
-  background-size: 160px 160px;
-  opacity: 0.12;
-  filter: sepia(1) hue-rotate(70deg) saturate(3) brightness(0.6);
-  pointer-events: none;
+  image-rendering: crisp-edges;
 }
 
 /* Progress bar */
